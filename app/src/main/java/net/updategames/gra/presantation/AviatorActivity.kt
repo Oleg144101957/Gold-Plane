@@ -67,4 +67,8 @@ class AviatorActivity : AppCompatActivity() {
             element4.startAnimation(anim)
         }
     }
+
+    override fun onBackPressed() {
+
+    }
 }

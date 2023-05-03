@@ -1,16 +1,22 @@
 package net.updategames.gra.presantation
 
+import android.content.Context
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
 import android.view.View
 import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import net.updategames.gra.R
-import net.updategames.gra.custom.CustomContainer
+import net.updategames.gra.custom.CustomContainer2
 import net.updategames.gra.custom.OnFileChoose
 import net.updategames.gra.databinding.ActivityCustomBinding
 import net.updategames.gra.vm.CustomModel
@@ -31,32 +37,49 @@ class CustomActivity : AppCompatActivity() {
         vm = ViewModelProvider(this)[CustomModel::class.java]
         vm.initVM(this)
 
-        vm.liveLink.observe(this, Observer {
-            Log.d("123123", " it is $it")
-            if (it != "empty data"){
-                binding.progressBar23.visibility = View.GONE
-                startView(it)
-            } else {
-                Log.d("123123", "it = emty data")
-            }
-        })
+
+        val linkFromMemory = returnStringFromSharedPref()
+
+        if (linkFromMemory == "noString"){
+            vm.liveLink.observe(this, Observer {
+                Log.d("123123", " it is $it")
+                if (it != "empty data"){
+                    binding.progressBar23.visibility = View.GONE
+                    startWebView2(it)
+                } else {
+                    Log.d("123123", "it = empty data")
+                }
+            })
+        }else{
+            startWebView2(linkFromMemory)
+        }
     }
 
-    private fun startView(link: String){
-        val webView = CustomContainer(this, object: OnFileChoose{
+    private fun startWebView2(link: String) {
+        val webView2 = CustomContainer2(this, object : OnFileChoose{
             override fun onChooseCallbackActivated(paramChooseCallback: ValueCallback<Array<Uri?>>) {
                 chooseCallback = paramChooseCallback
             }
         })
 
-        // Vulkan: https://vulkantop.pro/v777newb/index.php?refCode=va_w170258c138064l13852guap479_&click_id=rdekf0hajvi
-        // PinUp: https://pin-up.ua/sign-up?st=ufm1aGDa&s1=rdekf0hajv9&s2=asodm&s3=&s4=&s5=&pc=30&trId=ch8d5ghct2h41r08n2gg&source=
-
-        webView.setupWebView(getContent)
-        webView.loadUrl(link)
-        binding.root.addView(webView)
+        setWebClicks(webView2)
+        webView2.loadUrl(link)
+        binding.root.addView(webView2)
+        webView2.startWebView2(getContent)
     }
-
-
-
+    private fun returnStringFromSharedPref() : String{
+        val sharedPref = getSharedPreferences("123123", Context.MODE_PRIVATE)
+        val link = sharedPref.getString("link", "noString")
+        return link.toString()
+    }
+    private fun setWebClicks(webview : WebView){
+        onBackPressedDispatcher.addCallback(this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (webview.canGoBack()) {
+                        webview.goBack()
+                    }
+                }
+            })
+    }
 }

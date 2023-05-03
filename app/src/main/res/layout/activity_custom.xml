@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     android:id="@+id/myLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,18 +9,13 @@
     android:background="@drawable/bgavia"
     tools:context=".presantation.CustomActivity">
 
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/lottie"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:lottie_loop="true"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

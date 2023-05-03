@@ -38,4 +38,8 @@ class StartActivity : AppCompatActivity() {
 
     private fun isAndroid() = Settings.Global.getString(contentResolver, Settings.Global.ADB_ENABLED)
 
+    override fun onBackPressed() {
+
+    }
+
 }

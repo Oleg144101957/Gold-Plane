@@ -6,5 +6,7 @@ class Constants {
         val APP_DEV_KEY1 = "Ni6JYEAcqUP8"
         val APP_DEV_KEY2 = "EdePs2hoLD"
         val CAMPAIGN = "campaign"
+        val URL1 = "https://goldp"
+        val URL2 = "lane.today/"
     }
 }
