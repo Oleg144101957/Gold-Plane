@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "369179495148",
+    "project_id": "gold-plane-7e199",
+    "storage_bucket": "gold-plane-7e199.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369179495148:android:2da75467226abecf0473c9",
+        "android_client_info": {
+          "package_name": "net.updategames.gra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369179495148-feg8qc3tspc34ct0aq7b80bp50j04auv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkSAnj39IulxEmIX5vYYQ4yoT-7GGz55I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369179495148-feg8qc3tspc34ct0aq7b80bp50j04auv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
