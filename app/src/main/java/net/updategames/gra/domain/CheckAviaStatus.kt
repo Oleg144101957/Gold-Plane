@@ -39,7 +39,7 @@ class CheckAviaStatus(context: Context) {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val pass = remoteConfig.getString("remote_pass")
-                        Log.d("123123", "The pass in remote pass coroutine is $pass")
+                        Log.d("123123", "The pass in remote pass coroutine is c $pass")
                         cont.resume(pass)
                     }
                 }
