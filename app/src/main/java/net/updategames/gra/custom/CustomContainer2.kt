@@ -21,20 +21,20 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
         webViewClient = object : WebViewClient(){
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                Log.d("123123", "The URL is $url")
-                val base = Constants.URL1+Constants.URL2
-
+                val base = Constants.URL1 + Constants.URL2
                 val intent = Intent(context, AviatorActivity::class.java)
 
-                if (url == base){
+                if (url.toString().isBaseURL(base)) {
                     context.startActivity(intent)
                 } else {
-                    val linkFromMemory = sharedMemory.getString("link", "noString")
-                    if (linkFromMemory == "noString"){
-                        val isContainWord: Boolean? = url?.contains("goldplane")
+                    val encryptedNoString = "a~ynVorol"
+                    val encryptedLink = "f`yvs"
+                    val linkFromMemory = sharedMemory.getString(SimpleXorCipher.decrypt(encryptedLink), SimpleXorCipher.decrypt(encryptedNoString))
 
-                        if (isContainWord != true){
-                            sharedMemory.edit().putString("link", url).apply()
+                    if (linkFromMemory == SimpleXorCipher.decrypt(encryptedNoString)) {
+                        val encryptedKeyword = "c~rhg\"kyhs"
+                        if (!url.toString().containsKeywordEncrypted(encryptedKeyword)) {
+                            sharedMemory.edit().putString(SimpleXorCipher.decrypt(encryptedLink), url).apply()
                         }
                     }
                 }
@@ -45,7 +45,7 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
             javaScriptEnabled = true
             domStorageEnabled = true
             loadWithOverviewMode = false
-            userAgentString = settings.userAgentString.replace("wv", "")
+            userAgentString = settings.userAgentString.updateUserAgent()
         }
 
         webChromeClient = object : WebChromeClient(){
@@ -79,5 +79,36 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
                 return true
             }
         }
+    }
+
+    fun String.isBaseURL(baseURL: String): Boolean {
+        val encodedBaseURL = SimpleXorCipher.encrypt(baseURL)
+        val encodedURL = SimpleXorCipher.encrypt(this)
+        return encodedURL == encodedBaseURL
+    }
+
+    // Create a function to check if the URL contains a specific keyword.
+    fun String.containsKeywordEncrypted(encryptedKeyword: String): Boolean {
+        val encodedURL = SimpleXorCipher.encrypt(this)
+        return encodedURL.contains(encryptedKeyword)
+    }
+
+
+    object SimpleXorCipher {
+        private const val key = 0x42
+
+        fun encrypt(input: String): String {
+            return input.map { it.toInt() xor key }.joinToString(separator = "") { it.toChar().toString() }
+        }
+
+        fun decrypt(input: String): String {
+            return input.map { it.toInt() xor key }.joinToString(separator = "") { it.toChar().toString() }
+        }
+    }
+
+    fun String.updateUserAgent(): String {
+        val target = SimpleXorCipher.decrypt("cz")
+        val replacement = ""
+        return this.replace(target, replacement)
     }
 }
