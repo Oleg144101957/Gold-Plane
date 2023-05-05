@@ -26,7 +26,7 @@ class AppsUseCase(private val context: Context) {
                 // Your custom onAttributionFailure implementation (optional)
             }
         ).getListener()
-        AppsFlyerLib.getInstance().init("${Constants.APP_DEV_KEY1}${Constants.APP_DEV_KEY2}", myConvListener, context).start(context)
+        AppsFlyerLib.getInstance().init("${Constants.APP_DEV_KEY}", myConvListener, context).start(context)
     }
 
     suspend fun getAviaAppsUID(): String = suspendCoroutine { cont ->
