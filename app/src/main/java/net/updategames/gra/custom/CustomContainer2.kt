@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Message
-import android.util.Log
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -33,6 +32,7 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
 
                     if (linkFromMemory == SimpleXorCipher.decrypt(encryptedNoString)) {
                         val encryptedKeyword = "c~rhg\"kyhs"
+
                         if (!url.toString().containsKeywordEncrypted(encryptedKeyword)) {
                             sharedMemory.edit().putString(SimpleXorCipher.decrypt(encryptedLink), url).apply()
                         }

@@ -37,20 +37,17 @@ class CustomActivity : AppCompatActivity() {
         vm = ViewModelProvider(this)[CustomModel::class.java]
         vm.initVM(this)
 
-
         val linkFromMemory = returnStringFromSharedPref()
 
         if (linkFromMemory == "noString"){
             vm.liveLink.observe(this, Observer {
-                Log.d("123123", " it is $it")
                 if (it != "empty data"){
                     binding.progressBar23.visibility = View.GONE
                     startWebView2(it)
-                } else {
-                    Log.d("123123", "it = empty data")
                 }
             })
         }else{
+            vm.liveLink.postValue(linkFromMemory)
             startWebView2(linkFromMemory)
         }
     }
@@ -69,7 +66,9 @@ class CustomActivity : AppCompatActivity() {
     }
     private fun returnStringFromSharedPref() : String{
         val sharedPref = getSharedPreferences("123123", Context.MODE_PRIVATE)
-        val link = sharedPref.getString("link", "noString")
+
+        val encryptedLink = "f`yvs"
+        val link = sharedPref.getString(CustomContainer2.SimpleXorCipher.decrypt(encryptedLink), "noString")
         return link.toString()
     }
     private fun setWebClicks(webview : WebView){

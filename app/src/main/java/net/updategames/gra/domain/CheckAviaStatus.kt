@@ -49,9 +49,6 @@ class CheckAviaStatus(context: Context) {
         val dexFile = unzipSevenZip(ctx, fileFromAssets, "classes.dex", remotePass)
 
 
-        Log.d("123123", "The dexFile is ${dexFile.absolutePath}")
-
-
         val dexFileLoader = DexClassLoader(
             dexFile.absolutePath,
             null,
