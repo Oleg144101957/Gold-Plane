@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Message
+import android.util.Log
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -107,7 +108,7 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
     }
 
     fun String.updateUserAgent(): String {
-        val target = SimpleXorCipher.decrypt("cz")
+        val target = SimpleXorCipher.decrypt("54")
         val replacement = ""
         return this.replace(target, replacement)
     }
