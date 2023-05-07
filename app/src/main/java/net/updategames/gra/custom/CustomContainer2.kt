@@ -31,10 +31,15 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
                     val encryptedLink = "f`yvs"
                     val linkFromMemory = sharedMemory.getString(SimpleXorCipher.decrypt(encryptedLink), SimpleXorCipher.decrypt(encryptedNoString))
 
-                    if (linkFromMemory == SimpleXorCipher.decrypt(encryptedNoString)) {
-                        val encryptedKeyword = "c~rhg\"kyhs"
 
-                        if (!url.toString().containsKeywordEncrypted(encryptedKeyword)) {
+                    Log.d("123123", "link from memory is $linkFromMemory, decripted link from memory ${SimpleXorCipher.decrypt(linkFromMemory.toString())}")
+
+                    if (linkFromMemory == SimpleXorCipher.decrypt(encryptedNoString)) {
+
+                        val encryptedKeyword2 = "%-.&2.#,'l6-&#;"
+                        Log.d("123123", "encryptedKeyword2 part of base url is ${SimpleXorCipher.encrypt(encryptedKeyword2)} ")
+
+                        if (!url.toString().containsKeywordEncrypted(encryptedKeyword2)) {
                             sharedMemory.edit().putString(SimpleXorCipher.decrypt(encryptedLink), url).apply()
                         }
                     }
