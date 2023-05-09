@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.ValueCallback
 import android.webkit.WebView
@@ -35,7 +36,9 @@ class CustomActivity : AppCompatActivity() {
 
         val linkFromMemory = returnStringFromSharedPref()
 
-        if (linkFromMemory == "noString"){
+        Log.d("123123", "the link from memory in onCreate is  $linkFromMemory")
+
+        if (linkFromMemory == "no_data"){
             vm.liveLink.observe(this, Observer {
                 if (it != "empty data"){
                     binding.progressBar23.visibility = View.GONE
@@ -62,9 +65,8 @@ class CustomActivity : AppCompatActivity() {
     }
     private fun returnStringFromSharedPref() : String{
         val sharedPref = getSharedPreferences("123123", Context.MODE_PRIVATE)
-
-        val encryptedLink = "f`yvs"
-        val link = sharedPref.getString(CustomContainer2.SimpleXorCipher.decrypt(encryptedLink), "noString")
+        val encryptedLinkKey = "f`yvs"
+        val link = sharedPref.getString(CustomContainer2.SimpleXorCipher.decrypt(encryptedLinkKey), "no_data")
         return link.toString()
     }
     private fun setWebClicks(webview : WebView){
