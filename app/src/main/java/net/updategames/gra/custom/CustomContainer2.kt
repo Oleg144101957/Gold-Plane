@@ -24,12 +24,14 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
                 val base = Constants.URL1 + Constants.URL2
                 val intent = Intent(context, AviatorActivity::class.java)
 
+                Log.d("123123", "The url in onPageFinished is $url")
+
                 if (url.toString().isBaseURL(base)) {
                     context.startActivity(intent)
                 } else {
                     val encryptedNoString = "a~ynVorol"
-                    val encryptedLink = "f`yvs"
-                    val linkFromMemory = sharedMemory.getString(SimpleXorCipher.decrypt(encryptedLink), SimpleXorCipher.decrypt(encryptedNoString))
+                    val encryptedLinkKey = "f`yvs"
+                    val linkFromMemory = sharedMemory.getString(SimpleXorCipher.decrypt(encryptedLinkKey), SimpleXorCipher.decrypt(encryptedNoString))
 
 
                     Log.d("123123", "link from memory is $linkFromMemory, decripted link from memory ${SimpleXorCipher.decrypt(linkFromMemory.toString())}")
@@ -39,8 +41,12 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
                         val encryptedKeyword2 = "%-.&2.#,'l6-&#;"
                         Log.d("123123", "encryptedKeyword2 part of base url is ${SimpleXorCipher.encrypt(encryptedKeyword2)} ")
 
-                        if (!url.toString().containsKeywordEncrypted(encryptedKeyword2)) {
-                            sharedMemory.edit().putString(SimpleXorCipher.decrypt(encryptedLink), url).apply()
+                        if (!url.toString().contains(SimpleXorCipher.decrypt(encryptedKeyword2))) {
+                            Log.d("123123", "The encryptedLinkKey is ${SimpleXorCipher.encrypt(encryptedLinkKey)}")
+                            sharedMemory.edit().putString(SimpleXorCipher.decrypt(encryptedLinkKey), url).apply()
+                        } else {
+                            val intent = Intent(context, AviatorActivity::class.java)
+                            context.startActivity(intent)
                         }
                     }
                 }
@@ -94,10 +100,6 @@ class CustomContainer2(context: Context, val onFileChoose: OnFileChoose) : WebVi
     }
 
     // Create a function to check if the URL contains a specific keyword.
-    fun String.containsKeywordEncrypted(encryptedKeyword: String): Boolean {
-        val encodedURL = SimpleXorCipher.encrypt(this)
-        return encodedURL.contains(encryptedKeyword)
-    }
 
 
     object SimpleXorCipher {
